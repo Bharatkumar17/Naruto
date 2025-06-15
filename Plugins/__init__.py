@@ -175,17 +175,3 @@ async def callback_handler(bot, callback_query):
         await kaksha.handle_kaksha_logic(bot, call_msg)
 
 
-async def check_channel_membership(bot, m):
-    try:
-        member = await bot.get_chat_member(Config.CHANNEL, m.chat.id)
-        if member.status == "left" or member.status == "kicked":
-            return False
-    except:
-        return False
-    return True
-
-async def join_channel_if_needed(bot, m):
-    if not await check_channel_membership(bot, m):
-        await m.reply_text("<b><u>Please join our channel to access this feature.</b></u>", reply_markup=key.join_user())
-        return False
-    return True
